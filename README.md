@@ -120,7 +120,29 @@ Only the aggregated summary and sample sizes are sent to a central coordinator.
 
 The coordinator calculates a unified Global Average, proving that secure cross-company collaboration is possible while maintaining data privacy.
 
+---
 
+## Federated Learning API  (`providerfl.py` & `consumerfl.py`)
+
+While direct data sharing allows consumers to read filtered database rows, **Federated Learning (FL)** takes privacy a step further by turning the paradigm around: **the code goes to the data, and raw data never leaves its origin.**
+
+### How the FL API Works:
+1. **`fl_provider.py` (The Local Node):** 
+   Instead of exposing raw inventory or sensor data, this server simulates a local machine learning training session using its SQLite database. It calculates model parameters (weights) internally and returns *only* the mathematical weights and sample size.
+2. **`fl_consumer.py` (The Coordinator):** 
+   This script acts as the central coordinator. It authenticates via token and retrieves the model weights rather than raw files, ensuring 100% data sovereignty.
+
+### How to Run the FL:
+ Start the Federated provider server in a terminal window:
+   Bash
+   python -m uvicorn providerfl:app --reload
+
+On a seperate Command promt window  
+Bash
+
+**python consumer.py**
+
+Here we can see that the results for consumer are not directly understandable because they don't recieve raw data
 
 \---
 
@@ -154,7 +176,7 @@ This project demonstrates two modern approaches to solve this problem:
 
 
 
-The project consists of three main Python scripts:
+The project consists of five main Python scripts:
 
 
 
@@ -164,7 +186,9 @@ The project consists of three main Python scripts:
 
 \*   `federated_demo.py`: A standalone simulation script that demonstrates how two separate factories can calculate a joint average metric without sharing their proprietary product lists or quantities with each other.
 
+\*   `providerfl.py`: A secure FastAPI server adapted for Federated Learning. It manages the SQLite database, enforces token authentication, and provides a privacy-preserving endpoint that returns only local model weights and sample sizes instead of raw data.
 
+\*   `consumerfl.py`:A client script representing the central coordinator that securely requests machine learning model parameters from the provider using authentication tokens while ensuring data sovereignty.
 
 
 

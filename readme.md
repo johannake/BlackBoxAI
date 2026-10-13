@@ -162,7 +162,7 @@ The project consists of three main Python scripts:
 
 \*   `consumer.py`: A client script representing a partner company or coordinator that securely requests authorized information from the provider using authentication tokens.
 
-\*   `federated\\\_demo.py`: A standalone simulation script that demonstrates how two separate factories can calculate a joint average metric without sharing their proprietary product lists or quantities with each other.
+\*   `federated_demo.py`: A standalone simulation script that demonstrates how two separate factories can calculate a joint average metric without sharing their proprietary product lists or quantities with each other.
 
 
 
